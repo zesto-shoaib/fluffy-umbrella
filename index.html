@@ -1,11 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World</title>
+  <meta charset="UTF-8">
+  <title>Sign in with Discord</title>
+  <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.0"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding-top: 100px;
+      background-color: #2c2f33;
+      color: #fff;
+    }
+    button {
+      background-color: #5865F2;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #4752c4;
+    }
+  </style>
 </head>
 <body>
-    <h1>Hello World</h1>
+
+  <h1>Login with Discord</h1>
+  <button onclick="loginWithDiscord()">Sign in with Discord</button>
+
+  <script>
+    const client = new Appwrite.Client();
+    client
+      .setEndpoint('https://fra.cloud.appwrite.io/v1') // Your Appwrite endpoint
+      .setProject('683059e8001b10ead261'); // Your project ID
+
+    const account = new Appwrite.Account(client);
+
+    function loginWithDiscord() {
+      // Optional: set redirect URL after login
+      const redirectSuccess = window.location.href;
+
+      account.createOAuth2Session('discord', redirectSuccess, redirectSuccess);
+    }
+
+    // Optional: show login status
+    account.get()
+      .then(user => {
+        document.body.innerHTML += `<p>Welcome, ${user.name || user.email}!</p>`;
+      })
+      .catch(() => {
+        // Not logged in
+      });
+  </script>
+
 </body>
 </html>
