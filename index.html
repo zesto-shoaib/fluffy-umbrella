@@ -43,7 +43,8 @@
       // Optional: set redirect URL after login
       const redirectSuccess = window.location.href;
 
-      account.createOAuth2Session('discord', 'https://cloud.appwrite.io/auth-redirect', 'https://cloud.appwrite.io/auth-redirect');
+      account.createOAuth2Session('discord', 'https://cloud.appwrite.io/auth-redirect?return_to=https://your-username.github.io',
+  'https://cloud.appwrite.io/auth-redirect?return_to=https://your-username.github.io');
     }
 
     // Optional: show login status
